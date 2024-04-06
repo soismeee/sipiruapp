@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Klien extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+    
+    protected $primaryKey = 'id';
+    public $incrementing = false;
 }

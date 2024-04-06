@@ -1,18 +1,29 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PeminjamanController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+route::get('/', [HomeController::class, 'index'])->middleware('auth');
+route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
+route::post('/auth', [AuthController::class, 'authenticate'])->name('auth')->middleware('guest');
+route::post('/regist', [AuthController::class, 'store'])->name('regist')->middleware('guest');
+route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+route::get('/lengkapidata', [HomeController::class, 'lengkapiData'])->name('lengkapidata')->middleware('auth');
+route::post('/sk', [HomeController::class, 'store'])->name('sk')->middleware('auth');
+
+// peminjaman
+route::get('/p', [PeminjamanController::class, 'index'])->name('p')->middleware('auth');
+route::get('/cp', [PeminjamanController::class, 'create'])->name('cp')->middleware('auth');
+route::get('/rp', [PeminjamanController::class, 'riwayat'])->name('rp')->middleware('auth');
+route::post('/json_rp', [PeminjamanController::class, 'jsonRiwayat'])->name('json_rp')->middleware('auth');
+
+// informasi aula
+route::get('/i', [HomeController::class, 'informasiAula'])->name('i')->middleware('auth');
+
+// laporan
+route::get('/lp', [HomeController::class, 'laporan'])->name('lp')->middleware('auth');

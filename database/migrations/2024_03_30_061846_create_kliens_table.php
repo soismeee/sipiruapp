@@ -20,7 +20,6 @@ class CreateKliensTable extends Migration
             $table->string('no_telepon');
             $table->string('alamat');
             $table->string('alamat_kantor');
-            $table->string('status_peminjaman');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Peminjaman extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+    
+    protected $primaryKey = 'id';
+    public $incrementing = false;
 }

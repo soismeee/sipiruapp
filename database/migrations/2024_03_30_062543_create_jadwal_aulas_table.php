@@ -15,14 +15,11 @@ class CreateJadwalAulasTable extends Migration
     {
         Schema::create('jadwal_aulas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('aula_id')->index()->comment('koneksi ke tabel aula');
             $table->string('nama_sesi');
             $table->time('sesi_awal');
             $table->time('sesi_akhir');
             $table->string('status')->default('aktif');
             $table->timestamps();
-
-            $table->foreign('aula_id')->references('id')->on('aulas')->onDelete('cascade');
 
         });
     }
