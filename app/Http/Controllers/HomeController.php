@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Klien;
+use App\Models\Peminjaman;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class HomeController extends Controller
         if($role == 2 && $klien == null){
             return redirect('/lengkapidata');
         }
+        $test = Peminjaman::with(['jadwal_aula'])->where('tanggal', '>=', date('Y-m-d'))->get();
         $view = 'home.user.index';
         if ($role == 1) {
             $view = 'home.dinas.index';
@@ -25,7 +27,8 @@ class HomeController extends Controller
         return view($view, [
             'title' => 'Halaman utama',
             'menu' => 'Dashboard',
-            'submenu' => 'Halaman utama'
+            'submenu' => 'Halaman utama',
+            'test' => $test
         ]);
     }
 
@@ -90,10 +93,22 @@ class HomeController extends Controller
     }
 
     public function informasiAula(){
+        $aula = [
+            'meja_depan' => 1,
+            'podium' => 1,
+            'meja_panjang' => 4,
+            'kursi' => 100,
+            'proyektor' => 2,
+            'smart_tv' => 1,
+            'lcd' => 1,
+            'audio' => 4
+
+        ];
         return view('informasi_aula.index', [
             'title' => 'Informasi Aula',
             'menu' => 'Informasi Aula',
-           'submenu' => 'Aula'
+            'submenu' => 'Aula',
+            'aula' => $aula
         ]);
     }
 
@@ -103,6 +118,43 @@ class HomeController extends Controller
             'title' => 'Laporan',
             'menu' => 'Laporan Pinjam',
             'submenu' => 'Daftar'
+        ]);
+    }
+
+    public function dataLaporan($request)
+    {
+        $request->validate(
+            ['range_tanggal' => 'required'],
+            ['range_tanggal.required' => 'Rentang tanggal harus dipilih']
+        );
+        $tanggal = $request->range_tanggal;
+        $awal = mb_substr($tanggal, 0, 10);
+        $akhir = mb_substr($tanggal, 14, 24);
+        if ($akhir == null) {
+            $peminjaman = Peminjaman::with(['jadwal_aula', 'klien'])->where('tanggal', $awal);
+        } else {
+            $peminjaman = Peminjaman::with(['jadwal_aula', 'klien'])->whereBetween('tanggal', [$awal, $akhir]);
+        }
+
+        $tgl = date('d/m/Y', strtotime($awal)) . " s.d " . date('d/m/Y', strtotime($akhir));
+        $data = ['peminjaman' => $peminjaman, 'tanggal' => $tgl];
+        return $data;
+    }
+
+    public function getLaporan(Request $request){
+        $data = $this->dataLaporan($request);
+        $peminjaman = $data['peminjaman'];
+        return response()->json(['data' => $peminjaman->get()]);
+    }
+
+    public function cetakLaporan(Request $request){
+        $data = $this->dataLaporan($request);
+        $peminjaman = $data['peminjaman'];
+        $tanggal = $data['tanggal'];
+        return view('laporan.cetak', [
+            'title' => 'Cetak Data Peminjaman',
+            'peminjaman' => $peminjaman->get(),
+            'tanggal' => $tanggal
         ]);
     }
 }

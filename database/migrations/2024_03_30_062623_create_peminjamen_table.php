@@ -18,6 +18,10 @@ class CreatePeminjamenTable extends Migration
             $table->uuid('klien_id')->index()->comment('Koneksi ke table klien'); // field penghubung ke klien
             $table->uuid('ja_id')->index()->comment('koneksi ke tabel jadwal aula'); // field penghubung ke jadwal aula
 
+            $table->string('nama_peminjam');
+            $table->string('no_telepon');
+            $table->string('alamat');
+            $table->string('alamat_kantor');
             $table->time('waktu_awal');
             $table->time('waktu_akhir');
             $table->date('tanggal');

@@ -21,7 +21,7 @@
                     <h6>Pilih rentang tanggal peminjaman</h6>
                     <h6><strong class="text-warning">Note</strong> : Tombol <strong class="text-primary">Lihat</strong> digunakan untuk melihat data dengan rentang tanggal yang di pilih, data akan muncul pada kolom tabel di bawah, tombol <strong class="text-success">Cetak</strong> Digunakan untuk mencetak laporan dengan rentang tanggal yang dipilih</h6>
                     <hr />
-                    <form id="form_laporan" action="{{ url('clatk') }}" method="POST">
+                    <form id="form_laporan" action="{{ url('cetak') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-8">
@@ -129,22 +129,16 @@
                         isi = `
                         <tr>
                             <td>`+no+`</td>
-                            <td>`+item.invoice+`</td>
-                            <td>`+item.tanggal+`</td>
-                            <td>`+item.total_barang+`</td>
-                            <td>Rp. `+rupiah(item.total_nominal)+`</td>
+                            <td>`+item.id+`</td>
+                            <td>`+item.klien.nama_klien+`</td>
+                            <td>`+item.jadwal_aula.nama_sesi+`</td>
+                            <td>Hal : `+item.keperluan+` <br />Tgl : `+item.tanggal+`</td>
+                            <td>`+item.status_peminjaman+`</td>
                         </tr>
                         `
                         no++;
                         $('#laporan table tbody').append(isi);
                     });
-                    let total = `
-                        <tr>
-                            <td colspan="4"><strong>Total</strong></td>
-                            <td><strong>Rp. `+rupiah(response.total)+`</strong></td>
-                        </tr>
-                    `
-                    $('#laporan table tbody').append(total);
                 },
                 error: function(err){
                     $('#loading').hide();

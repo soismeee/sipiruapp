@@ -6,8 +6,42 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="text-center">INFORMASI AULA</h1>
+                <div class="col-lg-4">
+                    <h3>gambar aula</h3>
+                </div>
+                <div class="col-lg-8">
+                    <h4>Kelengkapan ruangan :</h4>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td width="50%"><h5>Meja Panjang Depan</h5></td>
+                            <td width="50%"><h5>: {{ $aula['meja_depan'] }} buah</h5></td>
+                        </tr>
+                        <tr>
+                            <td width="50%"><h5>Meja Podium</h5></td>
+                            <td width="50%"><h5>: {{ $aula['podium'] }} buah</h5></td>
+                        </tr>
+                        <tr>
+                            <td width="50%"><h5>Meja Panjang</h5></td>
+                            <td width="50%"><h5>: {{ $aula['meja_panjang'] }} buah</h5></td>
+                        </tr>
+                        <tr>
+                            <td width="50%"><h5>Kursi</h5></td>
+                            <td width="50%"><h5>: {{ $aula['kursi'] }} buah</h5></td>
+                        </tr>
+                        <tr>
+                            <td width="50%"><h5>Lain - lain</h5></td>
+                            <td width="50%">
+                                <h5>
+                                <ul>
+                                    <li>Proyektor</li>
+                                    <li>Proyektor/LCD</li>
+                                    <li>Smart TV</li>
+                                    <li>Alat audio</li>
+                                </ul>
+                                </h5>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

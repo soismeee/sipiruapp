@@ -13,6 +13,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 layout-spacing">
             <div class="d-flex justify-content-end mb-3">
                 <div>
+                    <label for="tanggal">Cari tanggal peminjaman</label>
                     <input type="date" class="form-control" name="tanggal" id="tanggal">
                 </div>
             </div>
@@ -65,6 +66,7 @@
                 type: "POST",
                 data: function(d) {
                     d._token = "{{ csrf_token() }}"
+                    d.tanggal = $("#tanggal").val()
                 }
             },
             columns: [{
@@ -79,25 +81,30 @@
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        return row.klien_id
+                        return row.klien.nama_klien + "<br /> CP : " + row.klien.no_telepon
                     }
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        return row.ja_id
+                        return row.jadwal_aula.nama_sesi
                     }
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        return row.keperluan
+                        return "Hal : " + row.keperluan + "<br /> Tgl : " + row.tanggal
                     }
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        return row.status
+                        return row.status_peminjaman
                     }
                 },
             ]
+        });
+
+        $(document).on('change', '#tanggal', function(e){
+            e.preventDefault();
+            table.ajax.reload();
         });
     </script>
 @endpush

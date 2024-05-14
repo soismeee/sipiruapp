@@ -13,4 +13,12 @@ class Peminjaman extends Model
     
     protected $primaryKey = 'id';
     public $incrementing = false;
+
+    public function jadwal_aula(){
+        return $this->belongsTo(JadwalAula::class, 'ja_id');
+    }
+
+    public function klien(){
+        return $this->belongsTo(Klien::class, 'klien_id');
+    }
 }

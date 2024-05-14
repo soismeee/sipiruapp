@@ -20,10 +20,17 @@ route::post('/sk', [HomeController::class, 'store'])->name('sk')->middleware('au
 route::get('/p', [PeminjamanController::class, 'index'])->name('p')->middleware('auth');
 route::get('/cp', [PeminjamanController::class, 'create'])->name('cp')->middleware('auth');
 route::get('/rp', [PeminjamanController::class, 'riwayat'])->name('rp')->middleware('auth');
+route::get('/get_p', [PeminjamanController::class, 'getPeminjaman'])->name('get_p')->middleware('auth');
+route::get('/cek_p/{id}', [PeminjamanController::class, 'cekPeminjaman'])->name('cek_p')->middleware('auth');
 route::post('/json_rp', [PeminjamanController::class, 'jsonRiwayat'])->name('json_rp')->middleware('auth');
+route::post('/save', [PeminjamanController::class, 'store'])->name('save')->middleware('auth');
+route::post('/proses/{id}', [PeminjamanController::class, 'prosesStatus'])->name('proses')->middleware('auth');
+route::delete('/del_p/{id}', [PeminjamanController::class, 'destroy'])->name('del_p')->middleware('auth');
 
 // informasi aula
 route::get('/i', [HomeController::class, 'informasiAula'])->name('i')->middleware('auth');
 
 // laporan
 route::get('/lp', [HomeController::class, 'laporan'])->name('lp')->middleware('auth');
+route::get('/get_l', [HomeController::class, 'getLaporan'])->name('get_l')->middleware('auth');
+route::post('/cetak', [HomeController::class, 'cetakLaporan'])->name('cetak')->middleware('auth');

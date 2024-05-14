@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAula;
+use App\Models\Klien;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,37 @@ class PeminjamanController extends Controller
             'submenu' => 'Daftar'
         ]);
     }
-    
+
+    public function getPeminjaman(){
+        $role = auth()->user()->role;
+        $peminjaman = Peminjaman::with('jadwal_aula')->select('*');
+        if ($role == 2) {
+            $klien = Klien::where('user_id', auth()->user()->id)->first();
+            $peminjaman->where('klien_id', $klien->id);
+        }
+
+        if ($peminjaman->count() > 0) {
+            return response()->json(['data' => $peminjaman->where('status_peminjaman', '!=', 'Selesai')->get()]);
+        } else {
+            return response()->json(['message' => 'Belum ada pengajuan peminjaman'], 404);
+        }
+        
+    }
+
+    public function create(){
+        $peminjaman = Peminjaman::where('tanggal', '>=', date('Y-m-d'))->pluck('tanggal');
+        $data_peminjaman = Peminjaman::with(['jadwal_aula'])->where('tanggal', '>=', date('Y-m-d'))->orderBy('ja_id', 'asc')->orderBy('tanggal', 'asc')->get();
+        return view('peminjaman.create', [
+            'title' => 'Buat Peminjaman',
+            'menu' => 'Peminjaman',
+           'submenu' => 'Create',
+           'jadwal' => JadwalAula::all(),
+           'klien' =>Klien::where('user_id', auth()->user()->id)->first(),
+           'tanggal' => $peminjaman,
+           'data_peminjaman' => $data_peminjaman,
+        ]);
+    }
+
     public function riwayat(){
         return view('peminjaman.riwayat', [
             'title' => 'Peminjaman',
@@ -23,19 +55,17 @@ class PeminjamanController extends Controller
         ]);
     }
 
-    public function create(){
-        return view('peminjaman.create', [
-            'title' => 'Buat Peminjaman',
-            'menu' => 'Peminjaman',
-           'submenu' => 'Create'
-        ]);
+    public function cekPeminjaman($id){
+        $peminjaman = Peminjaman::where('tanggal', '>=', date('Y-m-d'))->where('ja_id', $id)->pluck('tanggal');
+        return response()->json($peminjaman);
+
     }
 
     public function jsonRiwayat()
     {
-        $columns = ['id', 'klien_id', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan'];
+        $columns = ['id', 'klien_id', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman'];
         $orderBy = $columns[request()->input("order.0.column")];
-        $data = Peminjaman::select('id', 'klien_id', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan')->orderBy('id', 'DESC');
+        $data = Peminjaman::with(['jadwal_aula', 'klien'])->select('id', 'klien_id', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman')->orderBy('id', 'DESC');
 
         if (request()->input("search.value")) {
             $data = $data->where(function ($query) {
@@ -43,6 +73,10 @@ class PeminjamanController extends Controller
                     ->orWhereRaw('tanggal like ? ', ['%' . request()->input("search.value")])
                     ->orWhereRaw('keperluan like ? ', ['%' . request()->input("search.value")]);
             });
+        }
+
+        if(request('tanggal') !== null){
+            $data = $data->where('tanggal', request('tanggal'));
         }
 
         $recordsFiltered = $data->get()->count();
@@ -57,7 +91,63 @@ class PeminjamanController extends Controller
             'draw' => request()->input('draw'),
             'recordsTotal' => $recordsTotal,
             'recordsFiltered' => $recordsFiltered,
-            'data' => $data
+            'data' => $data,
+            'tanggal' => request('tanggal')
         ]);
+    }
+
+    public function kodePeminjaman()
+    {
+        $jmldatahariini = Peminjaman::selectRaw('LPAD(CONVERT(COUNT("id") + 1, char(8)) , 3,"0") as kodes')->whereDate('created_at', date('Y-m-d'))->first();
+        return "SPR" . date("ymd") . $jmldatahariini['kodes'];
+    }
+
+    public function store(Request $request){
+        // dd($request->all());
+        $request->validate([
+            'ja_id' => 'required',
+            'nama_peminjam' => 'required',
+            'no_telepon' => 'required',
+            'alamat' => 'required',
+            'alamat_kantor' => 'required',
+            'tanggal' => 'required',
+            'keperluan' => 'required',
+        ]);
+
+        $jadwalaula = JadwalAula::find($request->ja_id);
+
+        $peminjaman = new Peminjaman();
+        $peminjaman->id = $this->kodePeminjaman();
+        $peminjaman->klien_id = $request->klien_id;
+        $peminjaman->ja_id = $request->ja_id;
+        $peminjaman->nama_peminjam = $request->nama_peminjam;
+        $peminjaman->no_telepon = $request->no_telepon;
+        $peminjaman->alamat = $request->alamat;
+        $peminjaman->alamat_kantor = $request->alamat_kantor;
+        $peminjaman->tanggal = $request->tanggal;
+        $peminjaman->waktu_awal = $jadwalaula->sesi_awal;
+        $peminjaman->waktu_akhir = $jadwalaula->sesi_akhir;
+        $peminjaman->keperluan = $request->keperluan;
+        $peminjaman->status_peminjaman = "Pengajuan";
+        $peminjaman->save();
+        // dd($peminjaman);
+
+        return redirect('/p');
+    }
+
+    public function  prosesStatus(Request $request, $id){
+        try {
+            $getPeminjaman = Peminjaman::findOrFail($id);
+            $getPeminjaman->status_peminjaman = $request->status_peminjaman;
+            $getPeminjaman->update();
+            return response()->json(['message' => 'Data berhasil diproses']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Data tidak berhasil diproses'], 404);
+        }
+    }
+
+    public function destroy($id){
+        Peminjaman::destroy($id);
+        return response()->json(['message' => 'Data berhasil dihapus']);
     }
 }
