@@ -22,8 +22,8 @@
         }
     </style>
     <h2 class='tengah'>{{ $title }}</h2>
-    <p>SIPIRU <br />
-        Tanggal cetak : {{ date('d/m/Y') }}</p>
+    <h4 class='tengah'>Rentang tanggal {{ $tanggal }}</h4>
+    <p>Tanggal cetak : {{ date('d/m/Y') }}</p>
     <table>
         <tr class="tengah">
             <th>#</th>

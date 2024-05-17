@@ -90,6 +90,12 @@
                         let status = "dark";
                         if (item.status_peminjaman == "Terima") { status = "primary"; }
                         if (item.status_peminjaman == "Selesai") { status = "success"; }
+                        
+                        let disabled = '';
+                        if(status_peminjaman == "Selesai"){
+                            disabled = 'disabled';
+                        }
+
                         isi = `
                         <tr>
                             <td>`+no+`</td>
@@ -116,7 +122,7 @@
                             @can('klien')
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-danger hapus" data-id="`+item.id+`">Hapus</button>
+                                    <button class="btn btn-sm btn-danger hapus" data-id="`+item.id+`" disabled>Hapus</button>
                                 </div>
                             </td>
                             @endcan
@@ -207,7 +213,7 @@
                 ) {
                     swalWithBootstrapButtons(
                         'Batal',
-                        'Barang tidak dihapus!!!',
+                        'Data tidak dihapus!!!',
                         'error'
                     );
                 }

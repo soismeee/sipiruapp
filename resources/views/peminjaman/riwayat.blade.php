@@ -81,7 +81,7 @@
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        return row.klien.nama_klien + "<br /> CP : " + row.klien.no_telepon
+                        return row.nama_peminjam + "<br /> CP : " + row.klien.no_telepon
                     }
                 },
                 {

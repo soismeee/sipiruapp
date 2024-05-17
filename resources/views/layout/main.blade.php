@@ -14,11 +14,6 @@
     <link href="/properti/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/properti/assets/css/plugins.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link href="/properti/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
-    <link href="/properti/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
-    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     @stack('css')
 </head>
 
@@ -51,7 +46,7 @@
             </div>
 
             <ul class="navbar-item flex-row mr-auto">
-                <li class="nav-item align-self-center search-animated">
+                {{-- <li class="nav-item align-self-center search-animated">
                     <form class="form-inline search-full form-inline search" role="search">
                         <div class="search-bar">
                             <input type="text" class="form-control search-form-control  ml-lg-auto"
@@ -64,7 +59,7 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                </li>
+                </li> --}}
             </ul>
 
             <ul class="navbar-item flex-row nav-dropdowns">
@@ -215,11 +210,6 @@
     </script>
     <script src="/properti/assets/js/custom.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <script src="/properti/plugins/apex/apexcharts.min.js"></script>
-    {{-- <script src="/assets/js/dashboard/dash_1.js"></script> --}}
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @stack('js')
 </body>
 

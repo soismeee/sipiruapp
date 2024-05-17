@@ -23,10 +23,12 @@ class PeminjamanController extends Controller
         if ($role == 2) {
             $klien = Klien::where('user_id', auth()->user()->id)->first();
             $peminjaman->where('klien_id', $klien->id);
+        } else{
+            $peminjaman->where('status_peminjaman', '!=', 'Selesai');
         }
 
         if ($peminjaman->count() > 0) {
-            return response()->json(['data' => $peminjaman->where('status_peminjaman', '!=', 'Selesai')->get()]);
+            return response()->json(['data' => $peminjaman->get()]);
         } else {
             return response()->json(['message' => 'Belum ada pengajuan peminjaman'], 404);
         }
@@ -63,9 +65,9 @@ class PeminjamanController extends Controller
 
     public function jsonRiwayat()
     {
-        $columns = ['id', 'klien_id', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman'];
+        $columns = ['id', 'klien_id', 'ja_id', 'nama_peminjam', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman'];
         $orderBy = $columns[request()->input("order.0.column")];
-        $data = Peminjaman::with(['jadwal_aula', 'klien'])->select('id', 'klien_id', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman')->orderBy('id', 'DESC');
+        $data = Peminjaman::with(['jadwal_aula', 'klien'])->select('id', 'klien_id', 'nama_peminjam', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman')->where('status_peminjaman', 'Selesai')->orderBy('id', 'DESC');
 
         if (request()->input("search.value")) {
             $data = $data->where(function ($query) {

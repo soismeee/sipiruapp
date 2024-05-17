@@ -11,30 +11,6 @@
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-chart-one">
             <div class="widget-heading">
-                <h5 class="">Data Peminjaman</h5>
-            </div>
-
-            <div class="widget-content">
-                <div id="revenueMonthly"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-chart-two">
-            <div class="widget-heading">
-                <h5 class="">Total Peminjaman</h5>
-            </div>
-            <div class="widget-content">
-                <div id="chart-2" class=""></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-table-three">
-
-            <div class="widget-heading">
                 <h5 class="">Daftar peminjaman belum di proses</h5>
             </div>
 
@@ -43,6 +19,7 @@
                     <table class="table table-scroll">
                         <thead>
                             <tr>
+                                <th><div class="th-content">#</div></th>
                                 <th><div class="th-content">Nama Klien</div></th>
                                 <th><div class="th-content th-heading">Alamat</div></th>
                                 <th><div class="th-content th-heading">Tanggal Pinjam</div></th>
@@ -51,18 +28,53 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><div class="td-content">User</div></td>
-                                <td><div class="td-content">Batang</div></td>
-                                <td><div class="td-content">17/04/2023</div></td>
-                                <td><div class="td-content">Rapat penting</div></td>
-                                <td><div class="td-content"><span class="badge bg-info">Proses</span></div></td>
-                            </tr>
 
-
+                            @forelse ($peminjaman as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama_peminjam }}</td>
+                                    <td>{{ $item->alamat }}</td>
+                                    <td>{{ $item->tanggal }}</td>
+                                    <td>{{ $item->keperluan }}</td>
+                                    <td>{{ $item->status_peminjaman }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center"><h4>Tidak ada peminjaman dengan status proses</h4></td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-chart-two">
+            <div class="widget-heading">
+                <h5 class="">Total Peminjaman</h5>
+                <p>Data Peminjaman pada bulan sekarang</p>
+            </div>
+            <div class="widget-content">
+                <table class="table table-bordered">
+                    <tr class="text-center">
+                        <td>Status</td>
+                        <td>Jumlah</td>
+                    </tr>
+                    <tr>
+                        <td>Pengajuan</td>
+                        <td>{{ $pengajuan }}</td>
+                    </tr>
+                    <tr>
+                        <td>Proses</td>
+                        <td>{{ $proses }}</td>
+                    </tr>
+                    <tr>
+                        <td>Selesai</td>
+                        <td>{{ $selesai }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -72,7 +84,7 @@
 </div>
 @endsection
 @push('js')
-<script src="/properti/plugins/apex/apexcharts.min.js"></script>
-<script src="/properti/assets/js/dashboard/dash_1.js"></script>
+    <script src="/properti/plugins/apex/apexcharts.min.js"></script>
+    <script src="/properti/assets/js/dashboard/dash_1.js"></script>
     
 @endpush

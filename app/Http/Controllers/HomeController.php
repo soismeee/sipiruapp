@@ -28,7 +28,11 @@ class HomeController extends Controller
             'title' => 'Halaman utama',
             'menu' => 'Dashboard',
             'submenu' => 'Halaman utama',
-            'test' => $test
+            'test' => $test,
+            'pengajuan' => Peminjaman::where('status_peminjaman', 'Pengajuan')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
+            'proses' => Peminjaman::where('status_peminjaman', 'Proses')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
+            'selesai' => Peminjaman::where('status_peminjaman', 'Selesai')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
+            'peminjaman' => Peminjaman::where('status_peminjaman', 'Proses')->whereYear('tanggal', date('Y'))->get()    
         ]);
     }
 
@@ -144,7 +148,12 @@ class HomeController extends Controller
     public function getLaporan(Request $request){
         $data = $this->dataLaporan($request);
         $peminjaman = $data['peminjaman'];
-        return response()->json(['data' => $peminjaman->get()]);
+        if ($peminjaman->count() > 0) {
+            return response()->json(['data' => $peminjaman->get()]);
+        } else {
+            return response()->json(['message' => "Tidak ada data di rentang tanggal ini."], 404);
+        }
+        
     }
 
     public function cetakLaporan(Request $request){
