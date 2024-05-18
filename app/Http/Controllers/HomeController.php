@@ -30,9 +30,9 @@ class HomeController extends Controller
             'submenu' => 'Halaman utama',
             'test' => $test,
             'pengajuan' => Peminjaman::where('status_peminjaman', 'Pengajuan')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
-            'proses' => Peminjaman::where('status_peminjaman', 'Proses')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
+            'proses' => Peminjaman::where('status_peminjaman', 'Terima')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
             'selesai' => Peminjaman::where('status_peminjaman', 'Selesai')->whereMonth('tanggal', date('m'))->whereYear('tanggal', date('Y'))->count(),
-            'peminjaman' => Peminjaman::where('status_peminjaman', 'Proses')->whereYear('tanggal', date('Y'))->get()    
+            'peminjaman' => Peminjaman::where('status_peminjaman', 'Pengajuan')->whereDate('tanggal', '>=', date('Y-m-d'))->get()    
         ]);
     }
 
