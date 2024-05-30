@@ -26,19 +26,19 @@
     <p>Tanggal cetak : {{ date('d/m/Y') }}</p>
     <table>
         <tr class="tengah">
-            <th>#</th>
-            <th>Invoice</th>
-            <th>Klien</th>
-            <th>Sesi</th>
-            <th>Informasi</th>
-            <th>Status</th>
+            <th width="5%">#</th>
+            <th width="20%">Invoice</th>
+            <th width="20%">Klien</th>
+            <th width="20%">Sesi</th>
+            <th width="25%">Informasi</th>
+            <th width="10%">Status</th>
         </tr>
         <tbody>
             @foreach ($peminjaman as $item)
                 <tr>
                     <td class="tengah">{{ $loop->iteration }}</td>    
-                    <td>{{ $item->id }}</td>            
-                    <td class="tengah">{{ $item->klien->nama_klien }}</td>       
+                    <td class="tengah">{{ $item->id }}</td>            
+                    <td>{{ $item->klien->nama_klien }}</td>       
                     <td class="tengah">{{ $item->jadwal_aula->nama_sesi }}</td>       
                     <td>Hal : {{ $item->keperluan }} <br /> Tgl : {{ date('d/m/Y', strtotime($item->tanggal)) }}</td>       
                     <td class="tengah">{{ $item->status_peminjaman }}</td>       

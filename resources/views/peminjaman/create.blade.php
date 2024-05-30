@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="keperluan">Keperluan</label>
-                                <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan alamat kantor" value="{{ $klien->alamat_kantor }}">
+                                <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan">
                             </div>
                           <button type="submit" class="btn btn-primary mt-3">Simpan Pengajuan</button>
                         </form>

@@ -29,7 +29,7 @@
                                         <th>Sesi</th>
                                         <th>Informasi</th>
                                         <th>Status</th>
-                                        <th>Aksi</th>
+                                        <th width="10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,8 +92,12 @@
                         if (item.status_peminjaman == "Selesai") { status = "success"; }
                         
                         let disabled = '';
-                        if(status_peminjaman == "Selesai"){
+                        let bg = 'btn-danger';
+                        let tulisan = 'Hapus';
+                        if(item.status_peminjaman == "Selesai"){
                             disabled = 'disabled';
+                            bg = 'btn-success';
+                            tulisan = 'Selesai';
                         }
 
                         isi = `
@@ -116,13 +120,14 @@
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-sm btn-primary proses" data-id="`+item.id+`" data-status="`+item.status_peminjaman+`">Proses</button>
+                                    <button class="btn btn-sm `+bg+` hapus" data-id="`+item.id+`" `+disabled+`>`+tulisan+`</button>
                                 </div>
                             </td>
                             @endcan
                             @can('klien')
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-danger hapus" data-id="`+item.id+`" disabled>Hapus</button>
+                                    <button class="btn btn-sm `+bg+` hapus" data-id="`+item.id+`" `+disabled+`>`+tulisan+`</button>
                                 </div>
                             </td>
                             @endcan

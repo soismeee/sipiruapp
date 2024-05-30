@@ -34,3 +34,7 @@ route::get('/i', [HomeController::class, 'informasiAula'])->name('i')->middlewar
 route::get('/lp', [HomeController::class, 'laporan'])->name('lp')->middleware('auth');
 route::get('/get_l', [HomeController::class, 'getLaporan'])->name('get_l')->middleware('auth');
 route::post('/cetak', [HomeController::class, 'cetakLaporan'])->name('cetak')->middleware('auth');
+
+// profil
+route::get('/profile', [HomeController::class, 'profile'])->name('profile')->middleware('auth');
+route::post('/change_profile', [HomeController::class, 'update'])->name('change_profile')->middleware('auth');
