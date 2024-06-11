@@ -54,6 +54,10 @@ class HomeController extends Controller
             'no_telepon' => 'required',
             'alamat' => 'required',
             'alamat_kantor' => 'required',
+        ], [
+            'no_telepon.required' => 'Nomor telepon tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'alamat_kantor.required' => 'Alamat kantor tidak boleh kosong',
         ]);
 
         $klien = new Klien();

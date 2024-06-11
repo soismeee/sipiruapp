@@ -32,16 +32,34 @@
                             <div class="row">
                                 <div class="col-lg-12 mb-3">
                                     <label for="no_telepon">Telepon</label>
-                                    <input type="text" class="form-control" name="no_telepon" id="no_telepon">
+                                    <input type="text" class="form-control" name="no_telepon" id="no_telepon" value="{{ old('no_telepon') }}">
+                                    @error('no_telepon')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
                                 </div>
+                                
                                 <div class="col-lg-12 mb-3">
                                     <label for="alamat">Alamat</label>
-                                    <textarea name="alamat" id="alamat" cols="3" rows="3" class="form-control"></textarea>
+                                    <textarea name="alamat" id="alamat" cols="3" rows="3" class="form-control"> {{ old('alamat') }} </textarea>
+                                    @error('alamat')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
                                 </div>
+
                                 <div class="col-lg-12 mb-3">
                                     <label for="alamat_kantor">Alamat kantor</label>
-                                    <textarea name="alamat_kantor" id="alamat_kantor" cols="3" rows="3" class="form-control"></textarea>
+                                    <textarea name="alamat_kantor" id="alamat_kantor" cols="3" rows="3" class="form-control"> {{ old('alamat_kantor') }}</textarea>
+                                    @error('alamat_kantor')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
                                 </div>
+
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-md btn-primary">Simpan</button>
                                 </div>

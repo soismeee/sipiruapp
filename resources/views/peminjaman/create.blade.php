@@ -53,6 +53,20 @@
                                 <label for="keperluan">Keperluan</label>
                                 <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan">
                             </div>
+                            {{-- <label>Fasilitas yang di ajukan</label>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="">Fasilitas</label>
+                                    <input type="text" class="form-control" name="fasilitas">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Qty</label>
+                                    <input type="number" class="form-control" name="qty">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-dark">Tambah fasilitas</button>
+                            </div> --}}
                           <button type="submit" class="btn btn-primary mt-3">Simpan Pengajuan</button>
                         </form>
                     </div>
@@ -66,7 +80,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h3 class="text-center">Semua data pengajuan</h3>
+                        <h3 class="text-center">Daftar data pengajuan</h3>
                         <ul>
                             @foreach ($data_peminjaman as $dp)
                                 <li> <h5> {{ $dp->jadwal_aula->nama_sesi }} : {{ date('d/m/Y', strtotime($dp->tanggal)) }} </h5></li>

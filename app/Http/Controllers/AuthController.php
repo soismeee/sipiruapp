@@ -39,7 +39,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/home');
         }
-        return back()->with('loginError', 'Login Failed!!!');
+        return back()->with('loginError', 'Username atau password salah!!!');
     }
 
     public function store(Request $request){
@@ -48,6 +48,10 @@ class AuthController extends Controller
             'name' => 'required',
             'username' => 'required',
             'password' => 'required',
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'username.required' => 'Username tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
         ]);
 
         $user = new User();

@@ -43,7 +43,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h6>Daftar Transaksi Barang</h6>
+                        <h6>Daftar Peminjaman aula</h6>
                         <hr />
                         <div class="table-responsive" id="laporan">
                             <table class="table table-bordered table-striped mb-4">
