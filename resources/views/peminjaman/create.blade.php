@@ -53,20 +53,63 @@
                                 <label for="keperluan">Keperluan</label>
                                 <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan">
                             </div>
-                            {{-- <label>Fasilitas yang di ajukan</label>
+                            <label>Fasilitas yang di ajukan</label>
                             <div class="form-row">
                                 <div class="form-group col-md-8">
                                     <label for="">Fasilitas</label>
-                                    <input type="text" class="form-control" name="fasilitas">
+                                    <input type="text" class="form-control" name="fasilitas" value="Meja">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="">Qty</label>
-                                    <input type="number" class="form-control" name="qty">
+                                    <input type="number" class="form-control" name="qty" value="1" value="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="">Fasilitas</label>
+                                    <input type="text" class="form-control" name="fasilitas" value="Kursi">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Qty</label>
+                                    <input type="number" class="form-control" name="qty" value="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="">Fasilitas</label>
+                                    <input type="text" class="form-control" name="fasilitas" value="Smart TV">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Qty</label>
+                                    <input type="number" class="form-control" name="qty" value="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="">Fasilitas</label>
+                                    <input type="text" class="form-control" name="fasilitas" value="Proyektor">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Qty</label>
+                                    <input type="number" class="form-control" name="qty" value="1">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="">Fasilitas</label>
+                                    <input type="text" class="form-control" name="fasilitas" value="Alat audio">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Qty</label>
+                                    <input type="number" class="form-control" name="qty" value="1">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-dark">Tambah fasilitas</button>
-                            </div> --}}
+                                <div class="d-flex justify-content-end">
+
+                                    <button class="btn btn-dark">Tambah fasilitas</button>
+                                </div>
+                            </div>
                           <button type="submit" class="btn btn-primary mt-3">Simpan Pengajuan</button>
                         </form>
                     </div>
