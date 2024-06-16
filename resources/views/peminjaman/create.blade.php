@@ -43,10 +43,16 @@
                                             <option value="{{ $item->id }}">{{ $item->nama_sesi }}</option>
                                         @endforeach
                                     </select>
+                                    @error('ja_id')
+                                        <span class="text-danger">Sesi harus dipilih</span>
+                                    @enderror        
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="tanggal">Tanggal</label>
                                     <input type="text" class="form-control" name="tanggal" id="tanggal" value="{{ date('Y-m-d') }}" disabled>
+                                    @error('tanggal')
+                                        <span class="text-danger">Tanggal tidak boleh kosong</span>
+                                    @enderror    
                                 </div>
                             </div>
                             <div class="form-group mb-4">
@@ -56,14 +62,23 @@
                                 <img class="gambar" src="/properti/ruang/Gambar3.jpg" width="20%">
                                 <img class="gambar" src="/properti/ruang/Gambar4.jpeg" width="20%">
                                 <input type="text" class="form-control mt-2" name="bentuk_ruang" id="bentuk_ruang" readonly>
+                                @error('bentuk_ruang')
+                                    <span class="text-danger">Bentuk ruangan harus dipilih</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="keperluan">Keperluan</label>
                                 <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan">
+                                @error('keperluan')
+                                        <span class="text-danger">Keperluan tidak boleh kosong</span>
+                                    @enderror    
                             </div>
                             <div class="form-group mb-4">
                                 <label for="surat_pinjam">Upload surat pinjam</label>
                                 <input type="file" class="form-control" name="surat_pinjam" id="surat_pinjam">
+                                @error('surat_pinjam')
+                                    <span class="text-danger">Peminjaman harus menyertakan surat peminjaman</span>
+                                @enderror    
                             </div>
                             <label>Fasilitas yang di ajukan, (hapus fasilitas yang tidak anda inginkan)</label>
                             <div id="list_fasilitas">
