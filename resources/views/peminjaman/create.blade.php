@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h4>Form pengajuan peminjaman aula</h4>
-                        <form action="/save" method="POST">
+                        <form action="/save" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-row mb-4">
                                 <div class="form-group col-md-6">
@@ -50,64 +50,108 @@
                                 </div>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="">Pilih bentuk ruang dengan cara klik gambar dibawah ini</label> <br />
+                                <img class="gambar" src="/properti/ruang/Gambar1.jpg" width="20%">
+                                <img class="gambar" src="/properti/ruang/Gambar2.jpeg" width="20%">
+                                <img class="gambar" src="/properti/ruang/Gambar3.jpg" width="20%">
+                                <img class="gambar" src="/properti/ruang/Gambar4.jpeg" width="20%">
+                                <input type="text" class="form-control mt-2" name="bentuk_ruang" id="bentuk_ruang" readonly>
+                            </div>
+                            <div class="form-group">
                                 <label for="keperluan">Keperluan</label>
                                 <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan">
                             </div>
-                            <label>Fasilitas yang di ajukan</label>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="">Fasilitas</label>
-                                    <input type="text" class="form-control" name="fasilitas" value="Meja">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Qty</label>
-                                    <input type="number" class="form-control" name="qty" value="1" value="1">
-                                </div>
+                            <div class="form-group mb-4">
+                                <label for="surat_pinjam">Upload surat pinjam</label>
+                                <input type="file" class="form-control" name="surat_pinjam" id="surat_pinjam">
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="">Fasilitas</label>
-                                    <input type="text" class="form-control" name="fasilitas" value="Kursi">
+                            <label>Fasilitas yang di ajukan, (hapus fasilitas yang tidak anda inginkan)</label>
+                            <div id="list_fasilitas">
+                                <div class="form-row">
+                                    <div class="form-group col-md-9">
+                                        <label for="">Fasilitas</label>
+                                        <input type="text" class="form-control" name="fasilitas[]" value="Meja">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="">Qty</label>
+                                        <input type="number" class="form-control" name="qty[]" value="1" value="1">
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label for="" class="mb-3">&nbsp;</label> <br />
+                                        <a href="#" class="hapus_fasilitas">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Qty</label>
-                                    <input type="number" class="form-control" name="qty" value="1">
+                                <div class="form-row">
+                                    <div class="form-group col-md-9">
+                                        <label for="">Fasilitas</label>
+                                        <input type="text" class="form-control" name="fasilitas[]" value="Kursi">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="">Qty</label>
+                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label for="" class="mb-3">&nbsp;</label> <br />
+                                        <a href="#" class="hapus_fasilitas">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="">Fasilitas</label>
-                                    <input type="text" class="form-control" name="fasilitas" value="Smart TV">
+                                <div class="form-row">
+                                    <div class="form-group col-md-9">
+                                        <label for="">Fasilitas</label>
+                                        <input type="text" class="form-control" name="fasilitas[]" value="Smart TV">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="">Qty</label>
+                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label for="" class="mb-3">&nbsp;</label> <br />
+                                        <a href="#" class="hapus_fasilitas">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Qty</label>
-                                    <input type="number" class="form-control" name="qty" value="1">
+                                <div class="form-row">
+                                    <div class="form-group col-md-9">
+                                        <label for="">Fasilitas</label>
+                                        <input type="text" class="form-control" name="fasilitas[]" value="Proyektor">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="">Qty</label>
+                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label for="" class="mb-3">&nbsp;</label> <br />
+                                        <a href="#" class="hapus_fasilitas">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="">Fasilitas</label>
-                                    <input type="text" class="form-control" name="fasilitas" value="Proyektor">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Qty</label>
-                                    <input type="number" class="form-control" name="qty" value="1">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="">Fasilitas</label>
-                                    <input type="text" class="form-control" name="fasilitas" value="Alat audio">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Qty</label>
-                                    <input type="number" class="form-control" name="qty" value="1">
+                                <div class="form-row">
+                                    <div class="form-group col-md-9">
+                                        <label for="">Fasilitas</label>
+                                        <input type="text" class="form-control" name="fasilitas[]" value="Alat audio">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="">Qty</label>
+                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label for="" class="mb-3">&nbsp;</label> <br />
+                                        <a href="#" class="hapus_fasilitas">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-end">
 
-                                    <button class="btn btn-dark">Tambah fasilitas</button>
+                                    <button type="button" class="btn btn-dark mr-4" id="tambah_fasilitas">Tambah fasilitas</button>
                                 </div>
                             </div>
                           <button type="submit" class="btn btn-primary mt-3">Simpan Pengajuan</button>
@@ -150,6 +194,38 @@
         //         dateFormat: "Y-m-d", // Format tanggal yang sesuai dengan yang Anda gunakan
         //     });
         // });
+
+        $(document).on('click', '#tambah_fasilitas', function(e){
+            $('#list_fasilitas').append(`
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="">Fasilitas</label>
+                        <input type="text" class="form-control" name="fasilitas[]" placeholder="Tulisan kebutuhan anda">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Qty</label>
+                        <input type="number" class="form-control" name="qty[]" value="1">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="" class="mb-3">&nbsp;</label> <br />
+                        <a href="#" class="hapus_fasilitas">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                        </a>
+                    </div>
+                </div>
+            `)
+        });
+
+        $(document).on('click', '.gambar', function(e){
+            e.preventDefault();
+            let bentuk_ruang = $(this).attr('src');
+            $('#bentuk_ruang').val(bentuk_ruang);
+        })
+
+        $(document).on("click", ".hapus_fasilitas", function(e) {
+            e.preventDefault();
+            $(this).parent().parent().remove(); 
+        });
 
         $(document).on('change', '#ja_id', function(e){
             let ja_id = $(this).val();

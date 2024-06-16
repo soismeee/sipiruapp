@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JadwalAula;
 use App\Models\Klien;
 use App\Models\Peminjaman;
+use App\Models\PinjamFasilitas;
 use Illuminate\Http\Request;
 
 class PeminjamanController extends Controller
@@ -19,7 +20,7 @@ class PeminjamanController extends Controller
 
     public function getPeminjaman(){
         $role = auth()->user()->role;
-        $peminjaman = Peminjaman::with('jadwal_aula')->select('*');
+        $peminjaman = Peminjaman::with(['jadwal_aula', 'pinjam_fasilitas'])->select('*');
         if ($role == 2) {
             $klien = Klien::where('user_id', auth()->user()->id)->first();
             $peminjaman->where('klien_id', $klien->id);
@@ -114,7 +115,14 @@ class PeminjamanController extends Controller
             'alamat_kantor' => 'required',
             'tanggal' => 'required',
             'keperluan' => 'required',
+            'bentuk_ruang' => 'required',
+            'surat_pinjam' => 'required',
         ]);
+
+        $surat = $request->file('surat_pinjam');
+        $nama_surat = time().'.'.$surat->getClientOriginalExtension();
+        $destinasiFolder = public_path('/surat');
+        $surat->move($destinasiFolder, $nama_surat);
 
         $jadwalaula = JadwalAula::find($request->ja_id);
 
@@ -129,10 +137,20 @@ class PeminjamanController extends Controller
         $peminjaman->tanggal = $request->tanggal;
         $peminjaman->waktu_awal = $jadwalaula->sesi_awal;
         $peminjaman->waktu_akhir = $jadwalaula->sesi_akhir;
+        $peminjaman->bentuk_ruang = $request->bentuk_ruang;
+        $peminjaman->surat_pinjam = $nama_surat;
         $peminjaman->keperluan = $request->keperluan;
         $peminjaman->status_peminjaman = "Pengajuan";
         $peminjaman->save();
         // dd($peminjaman);
+
+        foreach ($request->fasilitas as $key => $fasilitas) {
+            PinjamFasilitas::create([
+                'peminjaman_id' => $peminjaman->id,
+                'fasilitas' => $request->fasilitas[$key],
+                'qty' => $request->qty[$key]
+            ]);
+        }
 
         return redirect('/p');
     }

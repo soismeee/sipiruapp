@@ -43,6 +43,7 @@
         </div>
     </div>
     @include('peminjaman.modal_proses')
+    @include('peminjaman.modal_surat')
 @endsection
 
 @push('js')
@@ -80,11 +81,11 @@
                 url: "{{ url('get_p') }}",
                 dataType: "json",
                 success: function(response) {
+                    $('#loading').hide();
+                    $('#datakosong').hide();
                     let isi = "";
                     let no = 1;
                     let data = response.data;
-                    $('#loading').hide();
-                    $('#datakosong').hide();
                     data.forEach((item) => {
                         let tanggal = moment(item.tanggal).format("DD-MM-YYYY");
                         let status = "dark";
@@ -100,6 +101,12 @@
                             tulisan = 'Selesai';
                         }
 
+                        let fasilitas = item.pinjam_fasilitas;
+                        let data_fasilitas = '';
+                        fasilitas.forEach((i) => {
+                            data_fasilitas += `<li>`+i.qty+ ` ` +i.fasilitas+`</li>`
+                        });
+
                         isi = `
                         <tr>
                             <td>`+no+`</td>
@@ -113,7 +120,10 @@
                             <td>
                                 Tanggal : `+tanggal+` <br />
                                 CP : `+item.no_telepon+` <br />
-                                Keperluan : `+item.keperluan+`
+                                Keperluan : `+item.keperluan+` <br />
+                                Fasilitas di pinjam : <br />
+                                <ul>`+data_fasilitas+`</ul>
+                                Lihat surat : <a href="#" class="btn btn-sm btn-info lihat_surat" data-surat_pinjam="`+item.surat_pinjam+`">Surat pinjam</a>
                                 </td>
                             <td><span class="badge bg-`+status+`">`+item.status_peminjaman+`</span></td>
                             @can('dinas')
@@ -151,6 +161,14 @@
             $('#status_peminjaman').val($(this).data('status'));
             $('#modalProses').modal('show');
         });
+
+        // melihat surat pinjam
+        $(document).on('click', '.lihat_surat', function(e){
+            $('#modalSurat').modal('show');
+            let data = "/surat/" + $(this).data('surat_pinjam');
+            
+            $('.isi_surat').attr('src', data);
+        })
 
         // fungsi untuk menjalankan proses pengajuan
         $(document).on('submit', '#form_proses', function(e){

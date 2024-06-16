@@ -26,7 +26,9 @@ class CreatePeminjamenTable extends Migration
             $table->time('waktu_akhir');
             $table->date('tanggal');
             $table->string('keperluan');
+            $table->string('bentuk_ruang');
             $table->string('status_peminjaman');
+            $table->string('surat_pinjam');
             $table->timestamps();
 
             $table->foreign('klien_id')->references('id')->on('kliens')->onDelete('cascade'); // koneksi dengan table klien

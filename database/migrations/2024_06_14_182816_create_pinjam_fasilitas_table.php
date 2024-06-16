@@ -15,7 +15,12 @@ class CreatePinjamFasilitasTable extends Migration
     {
         Schema::create('pinjam_fasilitas', function (Blueprint $table) {
             $table->id();
+            $table->uuid('peminjaman_id')->index()->comment('Koneksi ke table peminjaman'); // field penghubung ke tabel peminjaman
+            $table->string('fasilitas');
+            $table->string('qty');
             $table->timestamps();
+
+            $table->foreign('peminjaman_id')->references('id')->on('peminjamen')->onDelete('cascade'); // koneksi dengan table peminjaman
         });
     }
 

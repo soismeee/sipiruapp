@@ -21,4 +21,8 @@ class Peminjaman extends Model
     public function klien(){
         return $this->belongsTo(Klien::class, 'klien_id');
     }
+
+    public function pinjam_fasilitas(){
+        return $this->hasMany(PinjamFasilitas::class, 'peminjaman_id');
+    }
 }
