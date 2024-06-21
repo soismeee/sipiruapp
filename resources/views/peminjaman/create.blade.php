@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="surat_pinjam">Upload surat pinjam</label>
-                                <input type="file" class="form-control" name="surat_pinjam" id="surat_pinjam">
+                                <input type="file" class="form-control" name="surat_pinjam" id="surat_pinjam" accept=".pdf, .png, .jpg, .jpeg">
                                 @error('surat_pinjam')
                                     <span class="text-danger">Peminjaman harus menyertakan surat peminjaman</span>
                                 @enderror    
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control" name="qty[]" value="1" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1" value="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -137,7 +137,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -153,7 +153,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -219,7 +219,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="">Qty</label>
-                        <input type="number" class="form-control" name="qty[]" value="1">
+                        <input type="number" class="form-control qty" name="qty[]" value="1">
                     </div>
                     <div class="form-group col-md-1">
                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -241,6 +241,14 @@
             e.preventDefault();
             $(this).parent().parent().remove(); 
         });
+
+        $(document).on('change', '.qty', function(e){
+            let qty = $(this).val();
+            if (!qty) {
+                console.log("asdkjg");
+                $(this).val("1");
+            }
+        })
 
         $(document).on('change', '#ja_id', function(e){
             let ja_id = $(this).val();
