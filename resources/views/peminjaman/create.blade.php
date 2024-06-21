@@ -213,11 +213,11 @@
         $(document).on('click', '#tambah_fasilitas', function(e){
             $('#list_fasilitas').append(`
                 <div class="form-row">
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-9">
                         <label for="">Fasilitas</label>
                         <input type="text" class="form-control" name="fasilitas[]" placeholder="Tulisan kebutuhan anda">
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-2">
                         <label for="">Qty</label>
                         <input type="number" class="form-control" name="qty[]" value="1">
                     </div>
