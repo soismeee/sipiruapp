@@ -6,10 +6,24 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-4">
-                    <h3>gambar aula</h3>
-                </div>
                 <div class="col-lg-8">
+                    <h4>gambar aula</h4>
+                    <div class="row">
+                        <div class="col-6 mb-4">
+                            <img src="{{ asset('properti/ruang/1.jpg') }}" width="100%">
+                        </div>
+                        <div class="col-6 mb-4">
+                            <img src="{{ asset('properti/ruang/2.jpg') }}" width="100%">
+                        </div>
+                        <div class="col-6">
+                            <img src="{{ asset('properti/ruang/3.jpg') }}" width="100%">
+                        </div>
+                        <div class="col-6">
+                            <img src="{{ asset('properti/ruang/4.jpg') }}" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
                     <h4>Kelengkapan ruangan :</h4>
                     <table class="table table-bordered">
                         <tr>
