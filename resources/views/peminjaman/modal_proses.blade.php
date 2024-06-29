@@ -14,10 +14,14 @@
                     <select name="status_peminjaman" id="status_peminjaman" class="form-control">
                         <option selected disabled> Pilih status</option>
                         <option value="Pengajuan">Pengajuan</option>
+                        <option value="Tolak">Tolak</option>
                         <option value="Terima">Terima</option>
                         <option value="Selesai">Selesai</option>
                     </select>
                     <input type="hidden" class="form-control" id="id" name="id">
+
+                    <label class="mt-3">Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" class="form-control" disabled placeholder="Masukan keterangan jika pengajuan ditolak">
                 </div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Batal</button>

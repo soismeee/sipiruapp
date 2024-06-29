@@ -51,6 +51,7 @@ class HomeController extends Controller
 
     public function store(Request $request){
         $request->validate([
+            'nama_klien' => 'required',
             'no_telepon' => 'required',
             'alamat' => 'required',
             'alamat_kantor' => 'required',
@@ -63,8 +64,11 @@ class HomeController extends Controller
         $klien = new Klien();
         $klien->id = intval((microtime(true) * 10000));
         $klien->user_id = auth()->user()->id;
-        $klien->nama_klien = auth()->user()->name;
+        $klien->nama_klien = $request->nama_klien;
+        $klien->nip = $request->nip;
         $klien->no_telepon = $request->no_telepon;
+        $klien->email = $request->email;
+        $klien->jabatan = $request->jabatan;
         $klien->alamat = $request->alamat;
         $klien->alamat_kantor = $request->alamat_kantor;
         $klien->save();

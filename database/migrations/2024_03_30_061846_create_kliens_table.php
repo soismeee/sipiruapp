@@ -17,6 +17,9 @@ class CreateKliensTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->string('nama_klien');
+            $table->string('nip');
+            $table->string('jabatan');
+            $table->string('email');
             $table->string('no_telepon');
             $table->string('alamat');
             $table->string('alamat_kantor');

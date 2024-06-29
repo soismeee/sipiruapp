@@ -40,7 +40,7 @@
                                     <select name="ja_id" id="ja_id" class="form-control">
                                         <option selected disabled>Pilih sesi</option>
                                         @foreach ($jadwal as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama_sesi }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->nama_sesi }} ({{ date('H:i', strtotime($item->sesi_awal)) }} - {{ date('H:i', strtotime($item->sesi_akhir)) }})</option>
                                         @endforeach
                                     </select>
                                     @error('ja_id')
@@ -58,8 +58,8 @@
                             <div class="form-group mb-4">
                                 <label for="">Pilih bentuk ruang dengan cara klik gambar dibawah ini</label> <br />
                                 <img class="gambar" src="/properti/ruang/Gambar1.jpg" width="20%">
-                                <img class="gambar" src="/properti/ruang/Gambar2.jpeg" width="20%">
-                                <img class="gambar" src="/properti/ruang/Gambar3.jpg" width="20%">
+                                {{-- <img class="gambar" src="/properti/ruang/Gambar2.jpeg" width="20%"> --}}
+                                {{-- <img class="gambar" src="/properti/ruang/Gambar3.jpg" width="20%"> --}}
                                 <img class="gambar" src="/properti/ruang/Gambar4.jpeg" width="20%">
                                 <input type="text" class="form-control mt-2" name="bentuk_ruang" id="bentuk_ruang" readonly>
                                 @error('bentuk_ruang')

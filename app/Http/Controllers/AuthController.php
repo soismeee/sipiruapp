@@ -41,6 +41,22 @@ class AuthController extends Controller
         }
         return back()->with('loginError', 'Username atau password salah!!!');
     }
+    
+
+    public function authenticate2(Request $request)
+    {
+        // dd($request);
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return response()->json(['message' => 'Berhasil login']);
+        }
+        return response()->json(['message' => 'Gagal melakukan authentikasi'], 404);
+    }
 
     public function store(Request $request){
         // dd($request->all());
@@ -62,7 +78,7 @@ class AuthController extends Controller
         $user->role = 2;
         $user->save();
 
-        return redirect('/login')->with('Berhasil registrasi');
+        return response()->json(['message' => 'Registrasi berhasil dilakukan']);
     }
 
     public function logout()

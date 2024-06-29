@@ -30,7 +30,34 @@
                         <form action="{{ url('sk') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="col-lg-12 mb-3">
+                                <div class="col-lg-6 mb-3">
+                                    <label for="nama_klien">Nama Lengkap</label>
+                                    <input type="text" class="form-control" name="nama_klien" id="nama_klien" value="{{ old('nama_klien') }}">
+                                    @error('nama_klien')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="nip">NIP</label>
+                                    <input type="text" class="form-control" name="nip" id="nip" value="{{ old('nip') }}">
+                                    @error('nip')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}">
+                                    @error('email')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
+                                </div>
+                                <div class="col-lg-6 mb-3">
                                     <label for="no_telepon">Telepon</label>
                                     <input type="text" class="form-control" name="no_telepon" id="no_telepon" value="{{ old('no_telepon') }}">
                                     @error('no_telepon')
@@ -39,7 +66,17 @@
                                     </span>    
                                     @enderror
                                 </div>
-                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <label for="jabatan">Jabatan</label>
+                                    <input type="text" class="form-control" name="jabatan" id="jabatan" value="{{ old('jabatan') }}">
+                                    @error('jabatan')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>    
+                                    @enderror
+                                </div>
                                 <div class="col-lg-12 mb-3">
                                     <label for="alamat">Alamat</label>
                                     <textarea name="alamat" id="alamat" cols="3" rows="3" class="form-control"> {{ old('alamat') }} </textarea>

@@ -24,11 +24,11 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">#</th>
-                                        <th>Invoice</th>
-                                        <th>Klien</th>
-                                        <th>Sesi</th>
-                                        <th>Informasi</th>
-                                        <th>Status</th>
+                                        <th width="10%">Invoice</th>
+                                        <th width="15%">Klien</th>
+                                        <th width="15%">Sesi</th>
+                                        <th width="30%">Informasi</th>
+                                        <th width="15%">Status</th>
                                         <th width="10%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -91,10 +91,11 @@
                         let status = "dark";
                         if (item.status_peminjaman == "Terima") { status = "primary"; }
                         if (item.status_peminjaman == "Selesai") { status = "success"; }
+                        if (item.status_peminjaman == "Tolak") { status = "warning"; }
                         
                         let disabled = '';
                         let bg = 'btn-danger';
-                        let tulisan = 'Hapus';
+                        let tulisan = 'Batal';
                         if(item.status_peminjaman == "Selesai"){
                             disabled = 'disabled';
                             bg = 'btn-success';
@@ -106,7 +107,11 @@
                         fasilitas.forEach((i) => {
                             data_fasilitas += `<li>`+i.qty+ ` ` +i.fasilitas+`</li>`
                         });
-
+                        let keterangan = item.keterangan;
+                        let isi_keterangan = keterangan;
+                        if (keterangan == null) {
+                            isi_keterangan = " ";
+                        }
                         isi = `
                         <tr>
                             <td>`+no+`</td>
@@ -125,7 +130,10 @@
                                 <ul>`+data_fasilitas+`</ul>
                                 Lihat surat : <a href="#" class="btn btn-sm btn-info lihat_surat" data-surat_pinjam="`+item.surat_pinjam+`">Surat pinjam</a>
                                 </td>
-                            <td><span class="badge bg-`+status+`">`+item.status_peminjaman+`</span></td>
+                            <td>
+                                <span class="badge bg-`+status+`">`+item.status_peminjaman+`</span><br />
+                                `+isi_keterangan+`
+                            </td>
                             @can('dinas')
                             <td>
                                 <div class="btn-group">
@@ -160,6 +168,16 @@
             $('#id').val($(this).data('id'));
             $('#status_peminjaman').val($(this).data('status'));
             $('#modalProses').modal('show');
+        });
+
+        let status_peminjaman = document.getElementById('status_peminjaman');
+        status_peminjaman.addEventListener('change', function(){
+            if(this.value == "Tolak"){
+                $('#keterangan').attr('disabled', false);
+            }
+            if(this.value !== "Tolak"){
+                $('#keterangan').attr('disabled', true);
+            }
         });
 
         // melihat surat pinjam

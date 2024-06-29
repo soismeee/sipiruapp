@@ -96,7 +96,11 @@
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        return row.status_peminjaman
+                        if (row.keperluan !== "Selesai") {
+                            return "Berlangsung";
+                        } else {
+                            return "Selesai";
+                        }
                     }
                 },
             ]

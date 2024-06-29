@@ -10,6 +10,7 @@ route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
 route::post('/auth', [AuthController::class, 'authenticate'])->name('auth')->middleware('guest');
+route::post('/auth2', [AuthController::class, 'authenticate2'])->name('auth2')->middleware('guest');
 route::post('/regist', [AuthController::class, 'store'])->name('regist')->middleware('guest');
 route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 

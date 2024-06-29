@@ -68,7 +68,7 @@ class PeminjamanController extends Controller
     {
         $columns = ['id', 'klien_id', 'ja_id', 'nama_peminjam', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman'];
         $orderBy = $columns[request()->input("order.0.column")];
-        $data = Peminjaman::with(['jadwal_aula', 'klien'])->select('id', 'klien_id', 'nama_peminjam', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman')->where('status_peminjaman', 'Selesai')->orderBy('id', 'DESC');
+        $data = Peminjaman::with(['jadwal_aula', 'klien'])->select('id', 'klien_id', 'nama_peminjam', 'ja_id', 'waktu_awal', 'waktu_akhir', 'tanggal', 'keperluan', 'status_peminjaman')->orderBy('id', 'DESC');
 
         if (request()->input("search.value")) {
             $data = $data->where(function ($query) {
@@ -159,6 +159,7 @@ class PeminjamanController extends Controller
         try {
             $getPeminjaman = Peminjaman::findOrFail($id);
             $getPeminjaman->status_peminjaman = $request->status_peminjaman;
+            $getPeminjaman->keterangan = $request->keterangan;
             $getPeminjaman->update();
             return response()->json(['message' => 'Data berhasil diproses']);
         } catch (\Throwable $th) {

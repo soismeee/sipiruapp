@@ -23,6 +23,7 @@
             <div class="form-form-wrap">
                 <div class="form-container">
                     <div class="form-content">
+                        <img src="/properti/assets/img/logobatang.png" width="15%">
                         <h1 class="">SIPIRU <br /> DPMPTSP KAB. BATANG</h1>
                         <p class="">Masuk untuk menggunakan aplikasi.</p>
                         <form class="text-left" action="/auth" method="POST">
@@ -83,6 +84,5 @@
     
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     <script src="/properti/assets/js/authentication/form-2.js"></script>
-
 </body>
 </html>
