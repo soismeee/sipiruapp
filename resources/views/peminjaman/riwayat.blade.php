@@ -96,10 +96,10 @@
                 },
                 {
                     "render": function(data, type, row, meta) {
-                        if (row.keperluan !== "Selesai") {
-                            return "Berlangsung";
+                        if (row.status_peminjaman !== "Selesai") {
+                            return "<span class='badge bg-info'>Berlangsung</span>";
                         } else {
-                            return "Selesai";
+                            return "<span class='badge bg-success'>Selesai</span>";
                         }
                     }
                 },

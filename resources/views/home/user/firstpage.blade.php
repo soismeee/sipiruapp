@@ -78,7 +78,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-12 mb-3">
-                                    <label for="alamat">Alamat</label>
+                                    <label for="alamat">Alamat rumah</label>
                                     <textarea name="alamat" id="alamat" cols="3" rows="3" class="form-control"> {{ old('alamat') }} </textarea>
                                     @error('alamat')
                                     <span class="text-danger">

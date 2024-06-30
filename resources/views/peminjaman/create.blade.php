@@ -1,9 +1,27 @@
 @extends('layout.main')
 @push('css')
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="/properti/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
-        <link href="/properti/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
-        <!--  END CUSTOM STYLE FILE  -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="/properti/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link href="/properti/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+    <!--  END CUSTOM STYLE FILE  -->
+
+    <style>
+        /* Styling for flatpickr days */
+        .flatpickr-day.selected, .flatpickr-day.today {
+            background-color: green !important;
+            color: white !important;
+        }
+
+        .flatpickr-day.disabled, .flatpickr-day.disabled:hover {
+            background-color: red !important;
+            color: white !important;
+        }
+
+        /* Styling for the input field */
+        .form-control.tanggal {
+            border: 2px solid #ccc; /* Default border color */
+        }
+    </style>
 @endpush
 @section('container')
 <div class="row layout-top-spacing" id="cancel-row">
@@ -27,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="alamat">Alamat</label>
+                                <label for="alamat">Alamat rumah</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukan Alamat" value="{{ $klien->alamat }}">
                             </div>
                             <div class="form-group mb-4">
@@ -49,7 +67,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="text" class="form-control" name="tanggal" id="tanggal" value="{{ date('Y-m-d') }}" disabled>
+                                    <input type="text" class="form-control tanggal" name="tanggal" id="tanggal" value="{{ date('Y-m-d') }}" disabled>
                                     @error('tanggal')
                                         <span class="text-danger">Tanggal tidak boleh kosong</span>
                                     @enderror    
@@ -57,10 +75,10 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="">Pilih bentuk ruang dengan cara klik gambar dibawah ini</label> <br />
-                                <img class="gambar" src="/properti/ruang/Gambar1.jpg" width="20%">
+                                <img class="gambar" src="/properti/ruang/rapat.jpg" width="20%">
                                 {{-- <img class="gambar" src="/properti/ruang/Gambar2.jpeg" width="20%"> --}}
                                 {{-- <img class="gambar" src="/properti/ruang/Gambar3.jpg" width="20%"> --}}
-                                <img class="gambar" src="/properti/ruang/Gambar4.jpeg" width="20%">
+                                <img class="gambar" src="/properti/ruang/sosialisasi.jpeg" width="20%">
                                 <input type="text" class="form-control mt-2" name="bentuk_ruang" id="bentuk_ruang" readonly>
                                 @error('bentuk_ruang')
                                     <span class="text-danger">Bentuk ruangan harus dipilih</span>
@@ -262,12 +280,18 @@
             });
         });
 
-        function disabledTanggal(tanggal){
+        function disabledTanggal(tanggal) {
             var disabledDates = tanggal; // Tambahkan tanggal yang ingin dinonaktifkan
             flatpickr("#tanggal", {
                 disable: disabledDates,
                 minDate: "today", // Opsional: tidak memperbolehkan tanggal sebelum hari ini
                 dateFormat: "Y-m-d", // Format tanggal yang sesuai dengan yang Anda gunakan
+                onDayCreate: function(dObj, dStr, fp, dayElem) {
+                    // Menambahkan kelas CSS untuk hari yang dinonaktifkan
+                    if (dayElem.classList.contains('flatpickr-disabled')) {
+                        dayElem.classList.add('disabled');
+                    }
+                },
             });
         }
     </script>
