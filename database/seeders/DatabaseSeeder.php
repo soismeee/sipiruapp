@@ -47,8 +47,8 @@ class DatabaseSeeder extends Seeder
         JadwalAula::create([
             'id' => intval((microtime(true) * 12000)),
             'nama_sesi' => "Sesi 1",
-            'sesi_awal' => "10:00:00",
-            'sesi_akhir' => "13:00:00",
+            'sesi_awal' => "08:00:00",
+            'sesi_akhir' => "12:00:00",
             'status' => "aktif",
         ]);
 
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             'id' => intval((microtime(true) * 12000)),
             'nama_sesi' => "Sesi 2",
             'sesi_awal' => "13:00:00",
-            'sesi_akhir' => "15:00:00",
+            'sesi_akhir' => "16:00:00",
             'status' => "aktif",
         ]);
     }
