@@ -26,7 +26,7 @@ class CreatePeminjamenTable extends Migration
             $table->time('waktu_akhir');
             $table->date('tanggal');
             $table->string('keperluan', 30);
-            $table->string('bentuk_ruang', 30);
+            $table->string('bentuk_ruang', 100);
             $table->string('status_peminjaman', 25);
             $table->string('surat_pinjam', 40);
             $table->string('keterangan', 50)->nullable();
