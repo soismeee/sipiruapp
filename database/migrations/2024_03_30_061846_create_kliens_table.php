@@ -16,13 +16,13 @@ class CreateKliensTable extends Migration
         Schema::create('kliens', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
-            $table->string('nama_klien');
-            $table->string('nip');
-            $table->string('jabatan');
-            $table->string('email');
-            $table->string('no_telepon');
-            $table->string('alamat');
-            $table->string('alamat_kantor');
+            $table->string('nama_klien', 50);
+            $table->string('nip', 30);
+            $table->string('jabatan', 50);
+            $table->string('email', 30);
+            $table->string('no_telepon', 15);
+            $table->string('alamat', 50);
+            $table->string('alamat_kantor', 50);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
