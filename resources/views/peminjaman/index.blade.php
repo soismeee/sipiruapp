@@ -134,7 +134,7 @@
                                 </td>
                             <td>
                                 <span class="badge bg-`+status+`">`+item.status_peminjaman+`</span><br />
-                                `+isi_keterangan+` <br />`+uploadsurat+`
+                                `+isi_keterangan+` <br />@can('klien')`+uploadsurat+`@endcan
                             </td>
                             @can('dinas')
                             <td>
