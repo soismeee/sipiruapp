@@ -155,6 +155,20 @@ class PeminjamanController extends Controller
         return redirect('/p');
     }
 
+    public function update(Request $request){
+        $id = $request->idupload;
+        $peminjaman = Peminjaman::find($id);
+
+        $surat = $request->file('surat_pinjam');
+        $nama_surat = time().'.'.$surat->getClientOriginalExtension();
+        $destinasiFolder = public_path('/surat');
+        $surat->move($destinasiFolder, $nama_surat);
+
+        $peminjaman->surat_pinjam = $nama_surat;
+        $peminjaman->update();
+        return response()->json(['message' => "Surat peminjaman berhasil di update"]);
+    }
+
     public function  prosesStatus(Request $request, $id){
         try {
             $getPeminjaman = Peminjaman::findOrFail($id);

@@ -44,6 +44,7 @@
     </div>
     @include('peminjaman.modal_proses')
     @include('peminjaman.modal_surat')
+    @include('peminjaman.modal_uploadsurat')
 @endsection
 
 @push('js')
@@ -89,9 +90,10 @@
                     data.forEach((item) => {
                         let tanggal = moment(item.tanggal).format("DD-MM-YYYY");
                         let status = "dark";
+                        let uploadsurat = " ";
                         if (item.status_peminjaman == "Terima") { status = "primary"; }
                         if (item.status_peminjaman == "Selesai") { status = "success"; }
-                        if (item.status_peminjaman == "Tolak") { status = "warning"; }
+                        if (item.status_peminjaman == "Tolak") { status = "warning"; uploadsurat = `<a href="#" class="btn btn-sm btn-primary upload_surat" data-id="`+item.id+`">Upload ulang</a>`; }
                         
                         let disabled = '';
                         let bg = 'btn-danger';
@@ -132,7 +134,7 @@
                                 </td>
                             <td>
                                 <span class="badge bg-`+status+`">`+item.status_peminjaman+`</span><br />
-                                `+isi_keterangan+`
+                                `+isi_keterangan+` <br />`+uploadsurat+`
                             </td>
                             @can('dinas')
                             <td>
@@ -168,6 +170,13 @@
             $('#id').val($(this).data('id'));
             $('#status_peminjaman').val($(this).data('status'));
             $('#modalProses').modal('show');
+        });
+
+        $(document).on('click', '.upload_surat', function(e){
+            e.preventDefault();
+            console.log('tes');
+            $('#idupload').val($(this).data('id'));
+            $('#modalUploadSurat').modal('show');
         });
 
         let status_peminjaman = document.getElementById('status_peminjaman');
@@ -207,6 +216,29 @@
                 error: function(err) {
                     $('#tombol_proses').prop('disabled', false).html('Proses');
                     sweetAlert("Maaf!!!", err.responseJSON.message, "danger");
+                }
+            });
+        });
+
+        $(document).on('submit', '#form_upload', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: "{{ url('reuploadsurat') }}",
+                method: "POST",
+                data: new FormData(this),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response){
+                    loadingdatakosongtabel();
+                    loaddata();  
+                    $('#tombol_uplaod').prop('disabled', false).html('Proses');
+                    $('#modalUploadSurat').modal('hide');
+                    sweetAlert("Berhasil!", response.message, "success");
+                },
+                error: function(err){
+                    sweetAlert("Maaf!", response.message, "danger");
                 }
             });
         });

@@ -25,6 +25,7 @@ route::get('/get_p', [PeminjamanController::class, 'getPeminjaman'])->name('get_
 route::get('/cek_p/{id}', [PeminjamanController::class, 'cekPeminjaman'])->name('cek_p')->middleware('auth');
 route::post('/json_rp', [PeminjamanController::class, 'jsonRiwayat'])->name('json_rp')->middleware('auth');
 route::post('/save', [PeminjamanController::class, 'store'])->name('save')->middleware('auth');
+route::post('/reuploadsurat', [PeminjamanController::class, 'update'])->name('update')->middleware('auth');
 route::post('/proses/{id}', [PeminjamanController::class, 'prosesStatus'])->name('proses')->middleware('auth');
 route::delete('/del_p/{id}', [PeminjamanController::class, 'destroy'])->name('del_p')->middleware('auth');
 

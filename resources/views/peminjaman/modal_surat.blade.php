@@ -8,7 +8,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <iframe class="isi_surat" frameborder="0" width="100%" height="650px"></iframe>    
+                <img class="isi_surat" width="100%">
+                {{-- <iframe class="isi_surat" frameborder="0" style="width: 100vw; height: 100vh; border: none;"></iframe>     --}}
             </div>
         </div>
     </div>

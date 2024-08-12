@@ -86,7 +86,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="keperluan">Keperluan</label>
-                                <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan">
+                                <select name="keperluan" id="keperluan" class="form-control">
+                                    <option value="Rapat">Rapat</option>
+                                    <option value="Sosialisasi">Sosialisasi</option>
+                                    <option value="Pertemuan Rutin">Pertemuan Rutin</option>
+                                </select>
+                                {{-- <input type="text" class="form-control" name="keperluan" id="keperluan" placeholder="Masukan keperluan"> --}}
                                 @error('keperluan')
                                         <span class="text-danger">Keperluan tidak boleh kosong</span>
                                     @enderror    
@@ -107,7 +112,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control qty" name="qty[]" value="1" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1" value="1" max="5">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -123,7 +128,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control qty" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1" max="100">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -139,7 +144,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control qty" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1" max="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -155,7 +160,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control qty" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1" max="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -171,7 +176,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Qty</label>
-                                        <input type="number" class="form-control qty" name="qty[]" value="1">
+                                        <input type="number" class="form-control qty" name="qty[]" value="1" max="1">
                                     </div>
                                     <div class="form-group col-md-1">
                                         <label for="" class="mb-3">&nbsp;</label> <br />
@@ -237,7 +242,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="">Qty</label>
-                        <input type="number" class="form-control qty" name="qty[]" value="1">
+                        <input type="number" class="form-control qty" name="qty[]" value="1" max="10">
                     </div>
                     <div class="form-group col-md-1">
                         <label for="" class="mb-3">&nbsp;</label> <br />
